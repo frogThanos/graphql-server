@@ -4,5 +4,9 @@
   "description": "my first graphql server",
   "main": "index.js",
   "author": "thanos",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.0.0-rc.12",
+    "graphql": "^0.13.2"
+  }
 }
