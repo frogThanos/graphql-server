@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 
 const RecipeSchema = new Schema({
@@ -21,7 +20,7 @@ const RecipeSchema = new Schema({
   },
   createdDate: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   likes: {
     type: Number,
