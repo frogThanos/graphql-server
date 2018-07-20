@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
 const app = express();
 
 // create graphiql application
-app.use('./graphiql', graphiqlExpress({ endpointURL: './graphql' }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // connect schemas to graphql
 app.use('/graphql', graphqlExpress({
