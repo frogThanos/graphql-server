@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const createToken = (user, secret, expiresIn) => {
   const { username, email } = user;
@@ -25,6 +26,19 @@ exports.resolvers = {
         username,
       }).save();
     },
+    signInUser: async (root, args, context) => {
+      const { username, password } = args;
+      const { User } = context;
+      const user = await User.findOne({ username });
+      if (!user) {
+        throw new Error('User not found');
+      }
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      if (!isValidPassword) {
+        throw new Error('Password is not valid');
+      }
+      return { token: createToken(user, process.env.SECRET, '1hr')};
+    },
     signUpUser: async (root, args, context) => {
       const { username, email, password } = args;
       const { User } = context;
@@ -39,7 +53,7 @@ exports.resolvers = {
         email,
         password,
       }).save();
-      return { token: createToken(newUser, process.env.SECRET, '1hr')}
+      return { token: createToken(newUser, process.env.SECRET, '1hr')};
     }
   }
 };
