@@ -47,8 +47,7 @@ app.use(async (req, res, next) => {
   console.log(token);
   if (token !== 'null') {
     try {
-      const currentUser = await jwt.verify(token, process.env.SECRET);
-      console.log(currentUser);
+      req.currentUser = await jwt.verify(token, process.env.SECRET);
     } catch (e) {
       console.error(e);
     }
@@ -60,13 +59,14 @@ app.use(async (req, res, next) => {
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // connect schemas to graphql
-app.use('/graphql', bodyParser.json(), graphqlExpress({
+app.use('/graphql', bodyParser.json(), graphqlExpress(({ currentUser }) => ({
   schema,
   context: {
     Recipe,
     User,
+    currentUser,
   },
-}));
+})));
 
 const PORT = process.env.PORT || 4040;
 
