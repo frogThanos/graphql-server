@@ -41,6 +41,7 @@ exports.typeDefs = `
     instructions: String!,
     username: String,
     ): Recipe
+    deleteUserRecipe(_id: ID): Recipe
     
     signInUser(username: String!, password: String!): Token
         
