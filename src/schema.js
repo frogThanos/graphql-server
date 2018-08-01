@@ -45,6 +45,8 @@ exports.typeDefs = `
     
     likeRecipe(_id: ID!, username: String!): Recipe
     
+    unLikeRecipe(_id: ID!, username: String!): Recipe
+    
     signInUser(username: String!, password: String!): Token
         
     signUpUser(username: String!, email: String!, password: String!): Token
