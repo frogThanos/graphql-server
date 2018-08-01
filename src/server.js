@@ -58,6 +58,7 @@ app.use(async (req, res, next) => {
 // create graphiql application
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
+
 // connect schemas to graphql
 app.use('/graphql', bodyParser.json(), graphqlExpress(({ currentUser }) => ({
   schema,
